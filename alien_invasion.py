@@ -1,9 +1,9 @@
-import sys  # NOTE: Methods to interact with command line.
-
 import pygame  # NOTE: Allows us to build our game
 
 from settings import Settings
 from ship import Ship
+import game_functions as gf
+
 
 def run_game():
     """Initialize game, create window object."""
@@ -17,11 +17,7 @@ def run_game():
 
     # Start the run loop for our game.
     while True:
-        for event in pygame.event.get():  # NOTE: Our event loop, watch key events.
-
-            if event.type == pygame.QUIT:
-                sys.ext()  # NOTE: Exit the running process for our game, ie quit the game.
-
+        gf.check_events()
         # Redraw screen each pass of the loop and fill bg.
         screen.fill(ai_settings.bg_color)
 
