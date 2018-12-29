@@ -23,9 +23,13 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
         # Move the ship rect to the left.
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
-        if len(bullets) < ai_settings.bullets_allowed:
-            new_bullet = Bullet(ai_settings, screen, ship)
-            bullets.add(new_bullet)
+        fire_bullet(ai_settings, screen, ship, bullets)
+
+def fire_bullet(ai_settings, screen, ship, bullets):
+    """Fire bullet if limit not reached yet."""
+    if len(bullets) < ai_settings.bullets_allowed:
+        new_bullet = Bullet(ai_settings, screen, ship)
+        bullets.add(new_bullet)
 
 def update_bullets(bullets):
     """Update position of bullets and get rid of old bullets."""
