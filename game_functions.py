@@ -3,6 +3,7 @@ import sys
 import pygame
 from bullet import Bullet
 
+
 def check_events(ai_settings, screen, ship, bullets):
     """Respond to keypresses and mouse events."""
     for event in pygame.event.get():  # NOTE: Our event loop, watch key events.
@@ -10,6 +11,7 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keydown_events(event, ai_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
+
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     """Respond to keypresses."""
@@ -24,11 +26,13 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
 
+
 def fire_bullet(ai_settings, screen, ship, bullets):
     """Fire bullet if limit not reached yet."""
     if len(bullets) < ai_settings.bullets_allowed:
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
+
 
 def update_bullets(bullets):
     """Update position of bullets and get rid of old bullets."""
@@ -50,7 +54,7 @@ def check_keyup_events(event, ship):
 def update_screen(ai_settings, screen, ship, bullets):
     # Redraw screen each pass of the loop and fill bg.
     screen.fill(ai_settings.bg_color)
-    #Draw each bullet in bullets set
+    # Draw each bullet in bullets set
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     # Draw ship
