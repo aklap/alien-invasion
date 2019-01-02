@@ -63,3 +63,6 @@ def update_screen(ai_settings, screen, ship, alien, bullets):
     alien.blitme()
     # Make the most recently drawn screen visible.
     pygame.display.flip()
+
+    available_space_x = ai_settings.screen_width - (2 * alien_width)
+    number_aliens_x = available_space_x / (2 * alien_width)

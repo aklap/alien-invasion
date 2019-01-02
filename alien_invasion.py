@@ -3,7 +3,7 @@ from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 import game_functions as gf
-from alien import Alien
+
 
 def run_game():
     """Initialize game, create window object."""
@@ -17,8 +17,12 @@ def run_game():
     ship = Ship(ai_settings, screen)
     # Make bullets.
     bullets = Group()
-    # Make an alien.
-    alien = Alien(ai_settings, screen)
+    # Group aliens.
+    aliens = Group()
+
+    # Create the fleet of aliens.
+    gf.create_fleet(ai_settings, screen, aliens)
+
 
     # Start the run loop for our game.
     while True:
