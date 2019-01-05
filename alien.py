@@ -20,17 +20,26 @@ class Alien(Sprite):
         # Store alien's exact position
         self.x = float(self.rect.x)
 
-        # Speed of alien moving right or left
-        self.alien_speed_factor = 1
-        # Speed of alien moving down
-        self.fleet_drop_speed = 10
-        # Direction flag; 1 == right, -1 == left
-        self.fleet_direction = 1
+        # # Speed of alien moving right or left
+        # self.alien_speed_factor = 1
+        # # Speed of alien moving down
+        # self.fleet_drop_speed = 10
+        # # Direction flag; 1 == right, -1 == left
+        # self.fleet_direction = 1
+
+    def check_edges(self):
+        """Return True if alien is at edge of screen."""
+        screen_rect = self.screen.get_rect()
+        # if the image moves off the screen to the right or left
+        if self.rect.right >= screen_rect.right:
+            return True
+        elif self.rect.left <= 0:
+            return True
 
     def update(self):
         """Move alien to the right."""
         # Increase x of sprite by speed factor
-        self.x += self.alien_speed_factor
+        self.x += self.ai_settings.alien_speed_factor * self.ai_settings.fleet_direction
         # Assign new value of x to alien rect
         self.rect.x = self.x
 
