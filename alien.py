@@ -21,7 +21,14 @@ class Alien(Sprite):
         self.x = float(self.rect.x)
 
         # Speed of alien movement
-        self.alien_speed = 1
+        self.alien_speed_factor = 1
+
+    def update(self):
+        """Move alien to the right."""
+        # Increase x of sprite by speed factor
+        self.x += self.alien_speed_factor
+        # Assign new value of x to alien rect
+        self.rect.x = self.x
 
     def blitme(self):
         """Draw the alien at its current location."""
