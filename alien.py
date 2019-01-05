@@ -20,8 +20,12 @@ class Alien(Sprite):
         # Store alien's exact position
         self.x = float(self.rect.x)
 
-        # Speed of alien movement
+        # Speed of alien moving right or left
         self.alien_speed_factor = 1
+        # Speed of alien moving down
+        self.fleet_drop_speed = 10
+        # Direction flag; 1 == right, -1 == left
+        self.fleet_direction = 1
 
     def update(self):
         """Move alien to the right."""
