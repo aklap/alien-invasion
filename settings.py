@@ -13,7 +13,7 @@ class Settings():
         self.bullet_speed_factor = 1
         self.bullet_width = 3
         self.bullet_height = 15
-        self.bullet_color = 60, 60, 60  # Dark gray
+        self.bullet_color = (60, 60, 60)  # Dark gray
         self.bullets_allowed = 3
         # Speed of alien moving right or left
         self.alien_speed_factor = 1
