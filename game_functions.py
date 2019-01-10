@@ -4,7 +4,8 @@ import pygame
 from bullet import Bullet
 from alien import Alien
 
-def check_events(ai_settings, screen, ship, bullets, stats, play_button):
+
+def check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button):
     """Respond to keypresses and mouse events."""
     for event in pygame.event.get():  # NOTE: Our event loop, watch key events.
         if event.type == pygame.KEYDOWN:
