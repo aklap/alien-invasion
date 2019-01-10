@@ -9,7 +9,7 @@ def check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button)
     """Respond to keypresses and mouse events."""
     for event in pygame.event.get():  # NOTE: Our event loop, watch key events.
         if event.type == pygame.KEYDOWN:
-            check_keydown_events(event, ai_settings, screen, ship, bullets)
+            check_keydown_events(event, ai_settings, screen, ship, aliens, bullets, stats)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -17,32 +17,39 @@ def check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button)
             check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y)
 
 
+def start_game(ai_settings, screen, ship, aliens, bullets, stats):
+    """Start game."""
+    # Hide mouse cursor when game starts
+    pygame.mouse.set_visible(False)
+
+    # Reset game stats
+    stats.reset_stats()
+    stats.game_active = True
+
+    # Empty list of aliens and bullets
+    aliens.empty()
+    bullets.empty()
+
+    # Create new fleet and center ship
+    create_fleet(ai_settings, screen, ship, aliens)
+    ship.center_ship()
+
 def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y):
     """Start a new game when the player clicks Play."""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
 
     if button_clicked and not stats.game_active:
-        # Hide mouse cursor when game starts
-        pygame.mouse.set_visible(False)
-
-        # Reset game stats
-        stats.reset_stats()
-        stats.game_active = True
-
-        # Empty list of aliens and bullets
-        aliens.empty()
-        bullets.empty()
-
-        # Create new fleet and center ship
-        create_fleet(ai_settings, screen, ship, aliens)
-        ship.center_ship()
+        start_game(ai_settings, screen, ship, aliens, bullets, stats)
 
 
-def check_keydown_events(event, ai_settings, screen, ship, bullets):
+def check_keydown_events(event, ai_settings, screen, ship, aliens, bullets, stats):
     """Respond to keypresses."""
     if event.key == pygame.K_q:
         # NOTE: Exit the running process for our game, ie quit the game.
         sys.exit()
+    elif event.key == pygame.K_p:
+        # start game on key press of p
+        start_game(ai_settings, screen, ship, aliens, bullets, stats)
     elif event.key == pygame.K_RIGHT:
         # Move the ship rect to the right.
         ship.moving_right = True
