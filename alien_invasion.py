@@ -4,7 +4,7 @@ from settings import Settings
 from game_stats import Stats as GameStats
 from ship import Ship
 import game_functions as gf
-
+from button import Button
 
 def run_game():
     """Initialize game, create window object."""
