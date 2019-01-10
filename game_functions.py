@@ -1,5 +1,5 @@
 import sys
-
+from time import sleep
 import pygame
 from bullet import Bullet
 from alien import Alien
@@ -54,6 +54,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         # Destroy esisting bullets, create new fleet.
         bullets.empty()
+
         create_fleet(ai_settings, screen, ship, aliens)
 
 
@@ -116,12 +117,28 @@ def create_fleet(ai_settings, screen, ship, aliens):
         for alien_number in range(number_aliens_x):
             create_alien(ai_settings, screen, aliens, alien_number, row_number)
 
-
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """Update the positions of all aliens in the fleet."""
     # Check if any aliens are beyond screen edges, if so change direction
     check_fleet_edges(ai_settings, aliens)
+    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
     aliens.update()
+
+    # Look for alien-ship collisions
+
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+
+
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+    """Check if any aliens have reached bottom of screen."""
+    screen_rect = screen.get_rect()
+
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            # Treat this the same as if ship got hit
+            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            break
 
 
 def check_fleet_edges(ai_settings, aliens):
@@ -139,3 +156,24 @@ def change_fleet_direction(ai_settings, aliens):
         alien.rect.y += ai_settings.fleet_drop_speed
 
     ai_settings.fleet_direction *= -1
+
+
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    """Respond to ship being hit."""
+    # Decrement ships_left by 1
+    stats.ships_left -= 1
+
+    if stats.ships_left < 1:
+        stats.game_active = False
+        print('game over')
+    else:
+        # Empty the list of aliens and bullets
+        aliens.empty()
+        bullets.empty()
+
+        # Create new fleet and center ship
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship() #???
+
+        # Dramatic pause
+        sleep(0.5)
