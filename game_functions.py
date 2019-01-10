@@ -4,15 +4,21 @@ import pygame
 from bullet import Bullet
 from alien import Alien
 
-
-def check_events(ai_settings, screen, ship, bullets):
+def check_events(ai_settings, screen, ship, bullets, stats, play_button):
     """Respond to keypresses and mouse events."""
     for event in pygame.event.get():  # NOTE: Our event loop, watch key events.
         if event.type == pygame.KEYDOWN:
             check_keydown_events(event, ai_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(stats, play_button, mouse_x, mouse_y)
 
+def check_play_button(stats, play_button, mouse_x, mouse_y):
+    """Start a new game when the player clicks Play."""
+    if play_button.rect.collidepoint(mouse_x, mouse_y):
+        stats.game_active = True
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     """Respond to keypresses."""
@@ -66,7 +72,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, aliens, bullets):
+def update_screen(ai_settings, screen, ship, aliens, bullets, stats, play_button):
     # Redraw screen each pass of the loop and fill bg.
     screen.fill(ai_settings.bg_color)
     # Draw each bullet in bullets set
@@ -76,6 +82,9 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
     ship.blitme()
     # Draws each element in a group
     aliens.draw(screen)
+    # Draw play button only if game hasn't started
+    if not stats.game_active:
+        play_button.draw_button()
     # Make the most recently drawn screen visible.
     pygame.display.flip()
 
