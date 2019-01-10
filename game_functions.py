@@ -193,6 +193,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
 
     if stats.ships_left < 1:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
         print('game over')
     else:
         # Empty the list of aliens and bullets
