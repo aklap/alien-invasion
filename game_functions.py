@@ -35,7 +35,6 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
         ship.center_ship()
 
 
-
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     """Respond to keypresses."""
     if event.key == pygame.K_q:
@@ -141,6 +140,7 @@ def create_fleet(ai_settings, screen, ship, aliens):
     for row_number in range(number_rows):
         for alien_number in range(number_aliens_x):
             create_alien(ai_settings, screen, aliens, alien_number, row_number)
+
 
 def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """Update the positions of all aliens in the fleet."""
