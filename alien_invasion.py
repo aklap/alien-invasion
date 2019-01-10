@@ -14,6 +14,8 @@ def run_game():
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     # Add title to window.
     pygame.display.set_caption('Alien Invasion')
+    # Draw button.
+    play_button = Button(ai_settings, screen, "Play")
     # Make a ship.
     ship = Ship(ai_settings, screen)
     # Make bullets.
@@ -34,7 +36,7 @@ def run_game():
             ship.update()
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
             gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
-            gf.update_screen(ai_settings, screen, ship, aliens, bullets)
+            gf.update_screen(ai_settings, screen, ship, aliens, bullets, play_button)
         else:
             print('game is over')
 # Run the game :)
