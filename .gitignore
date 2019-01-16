@@ -1,5 +1,8 @@
 # Any files matching the search terms in this file will be ignored by git
 
+# Text editor
+.vscode*
+
 # .DS_Store holds information about the current folder for OSX
 # such as icon placement
 .DS_Store
