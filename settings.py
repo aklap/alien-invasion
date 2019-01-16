@@ -14,9 +14,7 @@ class Settings():
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)  # Dark gray
-        self.bullets_allowed = 3
-        # Speed of alien moving right or left
-        self.alien_speed_factor = 3
+        self.bullets_allowed = 6
         # Speed of alien moving down
         self.fleet_drop_speed = 5
         # Limit the number of ships (lives)
@@ -28,7 +26,7 @@ class Settings():
         """Initialize settings that change throughout the game."""
         self.ship_speed_factor = 1.5
         self.bullet_speed = 3
-        self.alien_speed_factor = 1.1
+        self.alien_speed_factor = 1.2
         # Direction flag; 1 == right, -1 == left
         self.fleet_direction = 1
 
