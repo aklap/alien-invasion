@@ -29,6 +29,8 @@ class Settings():
         self.alien_speed_factor = 1.2
         # Direction flag; 1 == right, -1 == left
         self.fleet_direction = 1
+        # Scoring
+        self.alien_points = 50
 
     def increase_speed(self):
         """Increase speed settings."""
