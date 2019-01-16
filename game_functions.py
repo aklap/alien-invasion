@@ -19,6 +19,8 @@ def check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button)
 
 def start_game(ai_settings, screen, ship, aliens, bullets, stats):
     """Start game."""
+    # Reset game settings whenever a new game starts
+    ai_settings.initialize_dynamic_settings()
     # Hide mouse cursor when game starts
     pygame.mouse.set_visible(False)
 
