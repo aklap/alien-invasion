@@ -100,7 +100,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, aliens, bullets, stats, play_button):
+def update_screen(ai_settings, screen, ship, aliens, bullets, stats, play_button, sb):
     # Redraw screen each pass of the loop and fill bg.
     screen.fill(ai_settings.bg_color)
     # Draw each bullet in bullets set
@@ -110,6 +110,8 @@ def update_screen(ai_settings, screen, ship, aliens, bullets, stats, play_button
     ship.blitme()
     # Draws each element in a group
     aliens.draw(screen)
+    # Draw score
+    sb.show_score()
     # Draw play button only if game hasn't started
     if not stats.game_active:
         play_button.draw_button()
