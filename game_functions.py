@@ -47,7 +47,8 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
         sb.prep_score()
         sb.prep_high_score()
         sb.prep_level()
-        
+        sb.prep_ships()
+
         start_game(ai_settings, screen, ship, aliens, bullets, stats)
 
 def check_keydown_events(event, ai_settings, screen, ship, aliens, bullets, stats):
@@ -178,27 +179,27 @@ def create_fleet(ai_settings, screen, ship, aliens):
             create_alien(ai_settings, screen, aliens, alien_number, row_number)
 
 
-def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets, sb):
     """Update the positions of all aliens in the fleet."""
     # Check if any aliens are beyond screen edges, if so change direction
     check_fleet_edges(ai_settings, aliens)
-    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets, sb)
     aliens.update()
 
     # Look for alien-ship collisions
 
     if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets, sb)
+        check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets, sb)
 
-
-def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets, sb):
     """Check if any aliens have reached bottom of screen."""
     screen_rect = screen.get_rect()
 
     for alien in aliens.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
             # Treat this the same as if ship got hit
-            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            ship_hit(ai_settings, stats, screen, ship, aliens, bullets, sb)
             break
 
 
@@ -219,10 +220,13 @@ def change_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
 
 
-def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets, sb):
     """Respond to ship being hit."""
     # Decrement ships_left by 1
-    stats.ships_left -= 1
+    if stats.ships_left > 0:
+        stats.ships_left -= 1
+    # Update scoreboard
+    sb.prep_ships()
 
     if stats.ships_left < 1:
         stats.game_active = False
@@ -235,7 +239,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
 
         # Create new fleet and center ship
         create_fleet(ai_settings, screen, ship, aliens)
-        ship.center_ship()  # ???
+        ship.center_ship()
 
         # Dramatic pause
         sleep(0.5)
