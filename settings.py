@@ -20,6 +20,8 @@ class Settings():
         # Limit the number of ships (lives)
         self.ship_limit = 3
         self.speedup_scale = 3
+        # Increase the point values as game gets harder
+        self.score_scale = 1.5
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
@@ -34,6 +36,8 @@ class Settings():
 
     def increase_speed(self):
         """Increase speed settings."""
+        # Use int to round up and increase point value by whole ints
+        self.alien_points = int(self.alien_points * self.score_scale)
         self.ship_speed_factor *= self.speedup_scale
         self.bullet_speed_factor *= self.speedup_scale
         self.alien_speed_factor *= self.speedup_scale
