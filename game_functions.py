@@ -44,10 +44,7 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
     if button_clicked and not stats.game_active:
         ai_settings.initialize_dynamic_settings()
         # Reset the score and level images
-        sb.prep_score()
-        sb.prep_high_score()
-        sb.prep_level()
-        sb.prep_ships()
+        sb.prep_images()
         stats.write_score()
         start_game(ai_settings, screen, ship, aliens, bullets, stats)
 
@@ -108,12 +105,15 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, st
         # Destroy esisting bullets, create new fleet.
         bullets.empty()
         ai_settings.increase_speed()
-        # Increase the player's level if they can destroy the fleet
-        stats.level += 1
-        # Re-draw the level image
-        sb.prep_level()
+        start_new_level(stats, sb)
         create_fleet(ai_settings, screen, ship, aliens)
 
+def start_new_level(stats, sb):
+    """Start a new game level."""
+    # Increase the player's level if they can destroy the fleet
+    stats.level += 1
+    # Re-draw the level image
+    sb.prep_level()
 
 def check_keyup_events(event, ship):
     """Respond to key releases."""
@@ -134,6 +134,7 @@ def update_screen(ai_settings, screen, ship, aliens, bullets, stats, play_button
     # Draws each element in a group
     aliens.draw(screen)
     # Draw score
+    sb.prep_images()
     sb.show_score()
     # Draw play button only if game hasn't started
     if not stats.game_active:

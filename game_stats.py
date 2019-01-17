@@ -24,6 +24,7 @@ class Stats():
     def read_score(self):
         """Read score in from file."""
         file_path = 'score.txt'
+        
         with open(file_path, 'r') as f:
             score = f.read()
 

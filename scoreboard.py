@@ -17,8 +17,9 @@ class Scoreboard():
         # Font settings for scoring info
         self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 48)
-        # Prepare the initial score and level images.
-        # self.read_score()
+
+    def prep_images(self):
+        """Prepare the initial score and level images."""
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
