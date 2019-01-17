@@ -18,6 +18,7 @@ class Scoreboard():
         self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 48)
         # Prepare the initial score and level images.
+        # self.read_score()
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
@@ -71,3 +72,18 @@ class Scoreboard():
             ship.rect.x = 10 + ship_number * ship.rect.width
             ship.rect.y = 10
             self.ships.add(ship)
+
+    # def write_score(self):
+    #     """Persist the high score by writing to file."""
+    #     file_path = 'score.txt'
+    #     with open(file_path, 'w') as f:
+    #         f.write(str(self.stats.high_score))
+
+    # def read_score(self):
+    #     """Read score in from file."""
+    #     file_path = 'score.txt'
+    #     with open(file_path, 'r') as f:
+    #         try:
+    #             self.stats.high_score = int(f.read())
+    #         except:
+    #             self.stats.high_score = 0
