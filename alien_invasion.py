@@ -33,11 +33,11 @@ def run_game():
 
     # Start the run loop for our game.
     while True:
+        gf.check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button, sb)
         if stats.game_active:
             ship.update()
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets, stats, sb)
             gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets, sb)
-        gf.check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button, sb)
         gf.update_screen(ai_settings, screen, ship, aliens, bullets, stats, play_button, sb)
 
 # Run the game :)

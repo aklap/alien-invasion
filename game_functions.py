@@ -48,14 +48,14 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
         sb.prep_high_score()
         sb.prep_level()
         sb.prep_ships()
-        sb.write_score()
+        stats.write_score()
         start_game(ai_settings, screen, ship, aliens, bullets, stats)
 
 def check_keydown_events(event, ai_settings, screen, ship, aliens, bullets, stats):
     """Respond to keypresses."""
     if event.key == pygame.K_q:
         # NOTE: Exit the running process for our game, ie quit the game.
-        sb.write_score()
+        stats.write_score()
         sys.exit()
     elif event.key == pygame.K_p:
         # start game on key press of p
