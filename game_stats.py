@@ -11,3 +11,5 @@ class Stats():
         """Initialize the stats that can change during the game."""
         self.ships_left = self.ai_settings.ship_limit
         self.score = 0
+        # Never reset the high score!
+        self.high_score = 0

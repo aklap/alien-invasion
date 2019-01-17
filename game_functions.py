@@ -81,6 +81,11 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets, stats, sb):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
+def check_high_score(stats, sb):
+    """Check to see if there's a new high score."""
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
 
 def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, stats, sb):
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
@@ -90,6 +95,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, st
         for aliens in collisions.values():
             stats.score += ai_settings.alien_points * len(aliens)
             sb.prep_score()
+            check_high_score(stats, sb)
 
     if len(aliens) == 0:
         # Destroy esisting bullets, create new fleet.
