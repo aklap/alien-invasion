@@ -7,6 +7,7 @@ import game_functions as gf
 from button import Button
 from scoreboard import Scoreboard
 
+
 def run_game():
     """Initialize game, create window object."""
     pygame.init()  # NOTE: Initialize a pygame instance.
@@ -23,22 +24,21 @@ def run_game():
     bullets = Group()
     # Group aliens.
     aliens = Group()
-    # Initalize stats for a new game
-    stats = GameStats(ai_settings)
-    # Create score
-    sb = Scoreboard(ai_settings, screen, stats)
     # Create the fleet of aliens.
     gf.create_fleet(ai_settings, screen, ship, aliens)
-
+    # Initalize stats for a new game
+    stats = GameStats(ai_settings)
+    # Make a scoreboard
+    sb = Scoreboard(ai_settings, screen, stats)
 
     # Start the run loop for our game.
     while True:
-        gf.check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button)
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets, stats, play_button, sb)
         if stats.game_active:
             ship.update()
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets, stats, sb)
             gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+        gf.check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button, sb)
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets, stats, play_button, sb)
 
 # Run the game :)
 run_game()

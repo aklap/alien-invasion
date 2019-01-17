@@ -13,3 +13,4 @@ class Stats():
         self.score = 0
         # Never reset the high score!
         self.high_score = 0
+        self.level = 1
