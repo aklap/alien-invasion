@@ -1,5 +1,8 @@
 # Any files matching the search terms in this file will be ignored by git
 
+# Game
+score.txt
+
 # Text editor
 .vscode*
 
