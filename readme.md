@@ -24,13 +24,17 @@ The a ship that can move left and right.
 
 The ship should fire space mace when player presses spacebar.
 
-## Pt. I
+## TODO:
 
-- create empty Pygame window
-- draw game elements: ship and aliens
-- respond to user input
-- set background color
-- load ship image
+- ~~Add sound effects~~
+- Random aliens shoot bullets down
+- Add shields for your ship to hide behind
+- Shields can be destroyed by alien bullets 
+- Pressing 'p' key after game start == pause
+- Pressing 'p' key after game start && pause, un-pauses game
+- At game over, display game over message
+
+
 
 
 
