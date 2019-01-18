@@ -250,17 +250,25 @@ def change_fleet_direction(ai_settings, aliens):
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets, sb):
     """Respond to ship being hit."""
+    # Sound
+    pygame.mixer.init()
+    sound = pygame.mixer.Sound('sounds/382310__myfox14__game-over-arcade.wav')
+    sound.play()
+
     # Decrement ships_left by 1
     if stats.ships_left > 0:
         stats.ships_left -= 1
+        sleep(0.5)
+    
     # Update scoreboard
     sb.prep_ships()
 
     if stats.ships_left < 1:
         stats.game_active = False
         pygame.mouse.set_visible(True)
-        sb.write_score()
+        stats.write_score()
         print('game over')
+        # TODO: Change message at end to 'game over'
     else:
         # Empty the list of aliens and bullets
         aliens.empty()
