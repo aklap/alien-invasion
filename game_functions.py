@@ -19,6 +19,12 @@ def check_events(ai_settings, screen, ship, bullets, aliens, stats, play_button,
 
 def start_game(ai_settings, screen, ship, aliens, bullets, stats):
     """Start game."""
+    # Start up sound
+    pygame.mixer.init()
+    sound = pygame.mixer.Sound('sounds/361261__japanyoshithegamer__8-bit-spaceship-startup.wav')
+    sound.play()
+    sleep(2)  # Delay movement of the aliens
+    
     # Reset game settings whenever a new game starts
     ai_settings.initialize_dynamic_settings()
 
@@ -27,6 +33,7 @@ def start_game(ai_settings, screen, ship, aliens, bullets, stats):
 
     # Reset game stats
     stats.reset_stats()
+
     stats.game_active = True
 
     # Empty list of aliens and bullets
@@ -65,11 +72,18 @@ def check_keydown_events(event, ai_settings, screen, ship, aliens, bullets, stat
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
+    # TODO: Add pause event if game_active && press p
 
 
 def fire_bullet(ai_settings, screen, ship, bullets):
     """Fire bullet if limit not reached yet."""
+
     if len(bullets) < ai_settings.bullets_allowed:
+        # Sound
+        pygame.mixer.init()
+        sound = pygame.mixer.Sound('sounds/126423__cabeeno-rossley__shoot-laser.wav')
+        sound.play()
+
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
 
@@ -97,6 +111,11 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, st
     # Update score
     if collisions:
         for aliens in collisions.values():
+            # Sound
+            pygame.mixer.init()
+            sound = pygame.mixer.Sound('sounds/222575__coby12388__bombhit01.wav')
+            sound.play()
+
             stats.score += ai_settings.alien_points * len(aliens)
             sb.prep_score()
             check_high_score(stats, sb)
@@ -110,10 +129,17 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, st
 
 def start_new_level(stats, sb):
     """Start a new game level."""
+    # Sound
+    pygame.mixer.init()
+    sound = pygame.mixer.Sound('sounds/126422__cabeeno-rossley__level-up.wav')
+    sound.play()
+    
     # Increase the player's level if they can destroy the fleet
     stats.level += 1
     # Re-draw the level image
     sb.prep_level()
+    
+    sleep(2)
 
 def check_keyup_events(event, ship):
     """Respond to key releases."""
